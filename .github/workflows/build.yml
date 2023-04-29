@@ -24,4 +24,4 @@ jobs:
         run: unifdef -x2 -USTAGING ./template.conf > result.conf
         if: ${{ inputs.rails-env }} == 'production'
       - name: Show result.conf
-        run: cat reuslt.conf
+        run: cat result.conf
