@@ -1,0 +1,21 @@
+name: build
+on:
+  workflow_call:
+    inputs:
+      rails-env:
+        required: true
+        type: string
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install unifdef
+        run: sudo apt-get install -y unifdef
+      - name: Generate nginx config file for staging
+        run: unifdef -x2 -DSTAGING template.conf > result.conf
+        if: ${{ inputs.rails-env }} == 'staging'
+      - name: Generate nginx config file for production
+        run: unifdef -x2 -USTAGING template.conf > result.conf
+        if: ${{ inputs.rails-env }} == 'production'
+      - name: Show result.conf
+        run: cat reuslt.conf
