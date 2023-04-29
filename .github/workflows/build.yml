@@ -11,11 +11,15 @@ jobs:
     steps:
       - name: Install unifdef
         run: sudo apt-get install -y unifdef
-      - name: Generate nginx config file for staging
-        run: unifdef -x2 -DSTAGING template.conf > result.conf
+      - name: Print working directory
+        run: pwd
+      - name: List files
+        run: ls -la
+      - name: Generate file for staging
+        run: unifdef -x2 -DSTAGING ./template.conf > result.conf
         if: ${{ inputs.rails-env }} == 'staging'
-      - name: Generate nginx config file for production
-        run: unifdef -x2 -USTAGING template.conf > result.conf
+      - name: Generate for production
+        run: unifdef -x2 -USTAGING ./template.conf > result.conf
         if: ${{ inputs.rails-env }} == 'production'
       - name: Show result.conf
         run: cat reuslt.conf
