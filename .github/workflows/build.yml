@@ -19,9 +19,9 @@ jobs:
         run: ls -la
       - name: Generate file for staging
         run: unifdef -x2 -DSTAGING ./template.conf > result.conf
-        if: ${{ inputs.rails-env }} == 'staging'
+        if: inputs.rails-env == 'staging'
       - name: Generate for production
         run: unifdef -x2 -USTAGING ./template.conf > result.conf
-        if: ${{ inputs.rails-env }} == 'production'
+        if: inputs.rails-env == 'production'
       - name: Show result.conf
         run: cat result.conf
